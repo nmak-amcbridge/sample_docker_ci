@@ -4,7 +4,7 @@ on:
     paths:
       - 'Dockerfile'
 jobs:
-  Build&Push:
+  Build-Push:
     runs-on: ubuntu-latest
     steps:
       - name: Set sha_short
