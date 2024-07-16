@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set sha_short
-      echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
         run: echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
       - name: Check outputs
         run: echo ${SHORT_SHA}
