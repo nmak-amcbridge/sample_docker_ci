@@ -8,15 +8,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set sha_short
-        id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+      echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+        run: echo "SHORT_SHA=`git rev-parse --short HEAD`" >> $GITHUB_ENV
       - name: Check outputs
-        run: echo ${{ steps.vars.outputs.sha_short }}
+        run: echo ${SHORT_SHA}
       - name: Check out repository code
         uses: actions/checkout@v4
       - name: Build
-        run: docker build -t nmakamcbridge/sample_docker:${{ steps.vars.outputs.sha_short }} .
+        run: docker build -t nmakamcbridge/sample_docker:${SHORT_SHA} .
       - name: Test
-        run: docker run nmakamcbridge/sample_docker:${{ steps.vars.outputs.sha_short }}
+        run: docker run nmakamcbridge/sample_docker:${SHORT_SHA}
       - name: Push
-        run: docker push nmakamcbridge/sample_docker:${{ steps.vars.outputs.sha_short }}
+        run: docker push nmakamcbridge/sample_docker:${SHORT_SHA}
